@@ -11,4 +11,4 @@ This repository is part of COSC 341 Project Step 4. The goal of this step is to 
 
 # UI Design
 
-![1669244435173](image/README/1669244435173.png)
+![1669244754567](image/README/1669244754567.png)
