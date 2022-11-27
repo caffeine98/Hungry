@@ -46,6 +46,7 @@
         android:id="@+id/BrowseButton"
         android:layout_width="160dp"
         android:layout_height="48dp"
+        android:onClick="onBrowseClick"
         android:text="Browse Recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

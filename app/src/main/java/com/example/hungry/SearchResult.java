@@ -26,4 +26,9 @@ public class SearchResult extends AppCompatActivity {
     public void back(View view){
         finish();
     }
+
+    public void recipe1(View view){
+        Intent intent = new Intent(this,RecipePage.class);
+        startActivity(intent);
+    }
 }

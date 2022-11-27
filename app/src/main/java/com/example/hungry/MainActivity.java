@@ -34,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
     public void onSearchClick(View view){
         EditText editText = findViewById(R.id.SearchText);
         String str = editText.getText().toString();
-        Intent intent = new Intent(this, Initialize.class);
+        Intent intent = new Intent(this, SearchResult.class);
         Bundle bundle = new Bundle();
         bundle.putString("Search Text", str);
         intent.putExtras(bundle);
+        startActivity(intent);
+    }
+    public void onBrowseClick(View view){
+        Intent intent = new Intent(this, Initialize.class);
         startActivity(intent);
     }
 }
