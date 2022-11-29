@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onBrowseClick(View view){
         Intent intent = new Intent(this, Initialize.class);
+        //TODO get intent
+
+    }
+
+    public void next(View view)
+    {
+        Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
     }
 }
