@@ -2,6 +2,7 @@ package com.example.hungry;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,5 +15,9 @@ public class page2 extends AppCompatActivity {
     }
     public void finished(View view){
         finish();
+    }
+    public void goNext(View view){
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
     }
 }

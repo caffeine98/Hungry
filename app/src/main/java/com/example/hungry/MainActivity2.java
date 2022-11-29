@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -89,17 +90,17 @@ public class MainActivity2 extends AppCompatActivity {
         {
             String info = commentInfo.get(infoIndex);//get the line
             //add info to comments if line is a comment
-            if(info == "Comment")
+            if(Objects.equals(info, "Comment"))
             {
                 comments.add(commentInfo.get(infoIndex + 1));
             }else {
                 //add info to likes if line is like info
-                if (info == "Likes") {
+                if (Objects.equals(info, "Likes")) {
                     String tempLike = commentInfo.get(infoIndex + 1);
                     likes.add(Integer.valueOf(tempLike));
                 }else {
                     //add info to postTimes if line is datetime info
-                    if (info == "Time") {
+                    if (Objects.equals(info, "Time")) {
                         String tempTime = commentInfo.get(infoIndex + 1);
                         LocalDateTime timeTemp = LocalDateTime.parse(tempTime, formatter);
                         postTimes.add(timeTemp);
@@ -109,7 +110,7 @@ public class MainActivity2 extends AppCompatActivity {
             infoIndex++;
         }
         //print out most recent comments
-        if(commentInfo.size() != 0)
+        if(commentInfo.size() > 0)
         {
             displayRecent();
         }
@@ -137,7 +138,7 @@ public class MainActivity2 extends AppCompatActivity {
     public void filter(View v){
         String spinVal = spinner.getSelectedItem().toString();
         if(comments.size() > 0) {
-            if (spinVal == "Most Recent")
+            if (spinVal.equals("Most Recent"))
                 displayRecent();
             else
                 displayLiked();
@@ -148,8 +149,13 @@ public class MainActivity2 extends AppCompatActivity {
     public void displayRecent(){
         //most recent = last two comments of arraylist
         int size = comments.size();
-        first = size - 1;
-        second = size - 2;
+        if(comments.size()==0){
+            first=0;
+            second=0;
+        }else{
+            first = size-1;
+            second = size-2;
+        }
         String com1 = comments.get(first);//most recent comment
         comment1.setText(com1);
         String lik1 = likes.get(first).toString();//number of likes
@@ -208,10 +214,26 @@ public class MainActivity2 extends AppCompatActivity {
         }
         else
         {
-            comment2.setText("");
-            like2.setText("");
+            current = 1;
+            second = 0;
+            while(current < size)
+            {
+                if(likes.get(current) >= likes.get(second))
+                {
+                    if(current != first){
+                        second = current;
+                    }
+                }
+                current+=1;
+            }
+            String com2 = comments.get(second);//2nd most liked comment
+            comment2.setText(com2);
+            String lik2 = likes.get(second).toString();//number of likes
+            like2.setText(lik2);
             like2.setChecked(false);
-            pTime2.setText("");
+            LocalDateTime pTimeTwo = postTimes.get(second);
+            String post2 = pTimeTwo.format(formatter);//get posted time
+            pTime2.setText(post2);
         }
 
     }
@@ -264,12 +286,13 @@ public class MainActivity2 extends AppCompatActivity {
             String time = currentTime.format(formatter);
             //add all info to a string that will save to the txt file
             fileContent = fileContent + "Comment" + "\n" + comment + "\n" + "Likes" + "\n" + like + "\n" + "Time" + "\n" + time +"\n";
+            current+=1;
         }
         FileOutputStream outputStream;//Allow a file to be opened for writing
 
         try{
             //save the file contents
-            outputStream = openFileOutput(filename, Context.MODE_APPEND);
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(fileContent.getBytes());
             outputStream.close();
         }

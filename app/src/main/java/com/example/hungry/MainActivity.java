@@ -43,13 +43,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onBrowseClick(View view){
         Intent intent = new Intent(this, Initialize.class);
-        //TODO get intent
-
-    }
-
-    public void next(View view)
-    {
-        Intent intent = new Intent(this, MainActivity2.class);
         startActivity(intent);
     }
 }
