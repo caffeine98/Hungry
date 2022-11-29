@@ -12,7 +12,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     EditText commentNew;// the new comment to be added
     ArrayList<String> comments;//all the comments on a specific recipe
     ArrayList<Integer> likes;//the number of likes at index i corresponds to the comment at index i in comments
-    ArrayList<Integer> postTimes;//the posted time for all comments
+    ArrayList<LocalDateTime> postTimes;//the posted time for all comments
+    int first;//first comment index
+    int second;//second comment index
+    DateTimeFormatter formatter;//date time formatter
 
 
     @Override
@@ -51,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         //initialize array lists
         comments = new ArrayList<String>();
         likes = new ArrayList<Integer>();
-        postTimes = new ArrayList<Integer>();
+        postTimes = new ArrayList<LocalDateTime>();
+        formatter = DateTimeFormatter.ISO_DATE_TIME;
     }
 
     //post your comment
@@ -60,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
         String com = commentNew.getText().toString();
         comments.add(com);
         likes.add(0);
-        postTimes.add(0);
+        LocalDateTime currentTime = LocalDateTime.now();
+        postTimes.add(currentTime);
         //display comment
         comment1.setText(com);
         like1.setChecked(false);
-        pTime1.setText("Posted 0 hours ago");
+        String formattedDateTime = currentTime.format(formatter);
+        pTime1.setText(formattedDateTime);
         //clear input box
         commentNew.setText("");
     }
@@ -82,62 +91,106 @@ public class MainActivity extends AppCompatActivity {
     public void displayRecent(){
         //most recent = last two comments of arraylist
         int size = comments.size();
-        String com1 = comments.get(size - 1);//most recent comment
+        first = size - 1;
+        second = size - 2;
+        String com1 = comments.get(first);//most recent comment
         comment1.setText(com1);
-        String lik1 = likes.get(size - 1).toString();//number of likes
+        String lik1 = likes.get(first).toString();//number of likes
         like1.setText(lik1);
-        String post1 = postTimes.get(size - 1).toString();//posted time
+        String post1 = postTimes.get(first).toString();//posted time
         pTime1.setText(post1);
         //second most recent comment
-        String com2 = comments.get(size - 2);//2nd most recent comment
+        String com2 = comments.get(second);//2nd most recent comment
         comment2.setText(com2);
-        String lik2 = likes.get(size - 2).toString();//number of likes
+        String lik2 = likes.get(second).toString();//number of likes
         like2.setText(lik2);
-        String post2 = postTimes.get(size - 2).toString();//posted time
+        String post2 = postTimes.get(second).toString();//posted time
         pTime2.setText(post2);
     }
 
     //most liked
     public void displayLiked(){
-        int most = 0;//most likes index
-        int second = 0;//second most likes index
+        first = 0;//most likes index
+        second = 0;//second most likes index
         int current = 1;//current likes index
         int size = likes.size();//size of likes
         //get most liked and second most liked
         while(current < size)
         {
-            if(likes.get(current) >= likes.get(most))
+            if(likes.get(current) >= likes.get(first))
             {
-                second = most;
-                most = current;
+                second = first;
+                first = current;
             }
             current++;
         }
-        String com1 = comments.get(most);//most recent comment
+        String com1 = comments.get(first);//most recent comment
         comment1.setText(com1);
-        String lik1 = likes.get(most).toString();//number of likes
+        String lik1 = likes.get(first).toString();//number of likes
         like1.setText(lik1);
-        String post1 = postTimes.get(most).toString();//posted time
+        like1.setChecked(false);
+        String post1 = postTimes.get(first).toString();//posted time
         pTime1.setText(post1);
         //second most recent comment if more than one comment
-        if(second != most) {
+        if(second != first) {
             String com2 = comments.get(second);//2nd most recent comment
             comment2.setText(com2);
             String lik2 = likes.get(second).toString();//number of likes
             like2.setText(lik2);
+            like2.setChecked(false);
             String post2 = postTimes.get(second).toString();//posted time
             pTime2.setText(post2);
+        }
+        else
+        {
+            comment2.setText("");
+            like2.setText("");
+            like2.setChecked(false);
+            pTime2.setText("");
         }
 
     }
     //increase likes
-    public void increaseLike(){
-
+    public void increaseLike1(View v) {
+        if (like1.isChecked()) {
+            //get previous amount and add one
+            Integer amount = likes.get(first) + 1;
+            likes.set(first, amount);
+            like1.setText(Integer.toString(amount));
+        } else {
+            Integer amount = likes.get(first) - 1;
+            if(amount >= 0) {
+                likes.set(first, amount);
+                like1.setText(Integer.toString(amount));
+            }
+        }
+    }
+    public void increaseLike2(View v) {
+        if (like2.isChecked()) {
+            //get previous amount and add one
+            Integer amount = likes.get(second) + 1;
+            likes.set(second, amount);
+            like2.setText(Integer.toString(amount));
+        } else{
+            Integer amount = likes.get(second) - 1;
+            if(amount >= 0) {
+                likes.set(second, amount);
+                like2.setText(Integer.toString(amount));
+            }
+        }
     }
 
     public void save(){
         String filename = "output.txt";
-        String fileContent = "\n";
+        int current = 0;
+        String fileContent = "";
+        while(current < comments.size()) {
+            String comment = comments.get(current);
+            String like = Integer.toString(likes.get(current));
+            LocalDateTime currentTime = postTimes.get(current);
+            String time = currentTime.format(formatter);
+            fileContent = fileContent + "Comment" + "\n" + comment + "\n" + "Likes" + "\n" + like + "\n" + "Time" + "\n" + time + "\n";
+        }
         FileOutputStream outputStream;//Allow a file to be opened for writing
 
         try{
