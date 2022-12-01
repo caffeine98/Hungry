@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,7 @@ public class Initialize extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initialize);
 
-        FileOutputStream outputStream;
+        /*FileOutputStream outputStream;
         try {
             outputStream = new FileOutputStream(file,false);
             outputStream.write(" ".getBytes(StandardCharsets.UTF_8));
@@ -42,9 +43,11 @@ public class Initialize extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
         try {
-            writeFile();
+            BufferedReader br = new BufferedReader(new FileReader("output.txt"));
+            if (br.readLine() == null)
+                writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

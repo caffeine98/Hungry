@@ -45,4 +45,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Initialize.class);
         startActivity(intent);
     }
+
+    public void onAddNewClick(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

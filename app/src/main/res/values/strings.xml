@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Hungry</string>
+    <string-array name="recipe_category">
+        <item>All</item>
+        <item>Breakfast</item>
+        <item>Brunch</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Post-workout</item>
+        <item>Appetizers</item>
+    </string-array>
+    <string-array name="recipe_tags">
+        <item>None</item>
+        <item>Vegan</item>
+        <item>Vegetarian</item>
+        <item>Gluten-Free</item>
+        <item>Kosher</item>
+        <item>Halal</item>
+        <item>Lactose-Free</item>
+    </string-array>
 </resources>
