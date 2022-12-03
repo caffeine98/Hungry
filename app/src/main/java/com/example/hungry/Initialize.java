@@ -24,7 +24,7 @@ public class Initialize extends AppCompatActivity {
     ArrayList<String> arrayList = new ArrayList<>();
     TextView txtOutput;
     Integer counter = 0, max = 0;
-    String file = "output.txt";
+    String file = "baseline.txt";
     String line = "";
     String data = "";
 
@@ -44,10 +44,15 @@ public class Initialize extends AppCompatActivity {
             e.printStackTrace();
         }
 */
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
+//            if (br.readLine() == null)
+//                writeFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
-            BufferedReader br = new BufferedReader(new FileReader("output.txt"));
-            if (br.readLine() == null)
-                writeFile();
+            writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +66,7 @@ public class Initialize extends AppCompatActivity {
     }
     public void writeFile() throws IOException {
         FileOutputStream outputStream;  //Allow a file to be opened for writing
-        String filename = "output.txt";
+        String filename = "baseline.txt";
         String fileContents = "Ingredients:\n" +
                 "1 cup milk\n" +
                 "¾ cup sugar\n" +
@@ -75,7 +80,8 @@ public class Initialize extends AppCompatActivity {
                 "Place egg yolks into a small bowl. Gradually whisk in about 1/2 cup of hot milk mixture, then return to the saucepan. Heat and stir until thickened, but do not boil.\n" +
                 "Remove from the heat and stir in chopped chocolate until melted.\n" +
                 "Pour into a chilled bowl and refrigerate, stirring occasionally, until cold, about 2 hours.\n" +
-                "Stir in cream and vanilla. Pour into an ice cream maker and freeze according to manufacturer's directions.\n";
+                "Stir in cream and vanilla. Pour into an ice cream maker and freeze according to manufacturer's directions.\n" +
+                "The End.\n";
         fileContents+= "Ingredients:\n" +
                 "1 (16 ounce) package uncooked rotini pasta\n" +
                 "1 (16 ounce) bottle Italian salad dressing\n" +
@@ -87,7 +93,8 @@ public class Initialize extends AppCompatActivity {
                 "Steps:\n" +
                 "Bring a large pot of lightly salted water to a boil. Place pasta in the pot, cook for 8 to 12 minutes, until al dente, and drain.\n" +
                 "Toss cooked pasta with Italian dressing, cucumbers, tomatoes, and green onions in a large bowl. Mix Parmesan cheese and Italian seasoning in a small bowl, and gently mix into the salad.\n" +
-                "Cover, and refrigerate for at least 30 minutes before serving.\n";
+                "Cover, and refrigerate for at least 30 minutes before serving.\n" +
+                "The End.\n";
         fileContents+="Ingredients:\n" +
                 "1 lb chicken breast, cut into chunks\n" +
                 "1 teaspoon garlic powder\n" +
@@ -103,7 +110,8 @@ public class Initialize extends AppCompatActivity {
                 "Toss the chicken breast with garlic powder, salt, and pepper. Heat olive oil in a 10-inch skillet over medium heat. Add chicken breast and cook until browned, stirring often, about 3 minutes. Add garlic to skillet and cook for 30 seconds more.\n" +
                 "Stir in rice and chicken broth. Bring to a boil, reduce to a simmer, and cover. Cook for 20 minutes, stirring occasionally.\n" +
                 "Remove pan from heat and place baby spinach on top of the rice. Cover and let sit for 5 minutes.\n" +
-                "Remove lid and stir well. Stir in cream and serve.\n";
+                "Remove lid and stir well. Stir in cream and serve.\n" +
+                "The End.\n";
         System.out.println(fileContents);
         outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
         outputStream.write(fileContents.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
@@ -116,12 +124,12 @@ public class Initialize extends AppCompatActivity {
         //File read operation
         data = "";
         while((line = br.readLine())!= null){
-            if(line.equals("Ingredients:")){
+            data+=line+"\n";
+            if(line.equals("The End.")){
                 arrayList.add(data);
                 data = "";
                 max += 1;
             }
-            data+=line+"\n";
         }
         txtOutput.setText(data);
     }

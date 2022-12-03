@@ -17,7 +17,7 @@ public class page2 extends AppCompatActivity {
         finish();
     }
     public void goNext(View view){
-        Intent intent = new Intent(this, MainActivity2.class);
+        Intent intent = new Intent(this, comment.class);
         startActivity(intent);
     }
 }
