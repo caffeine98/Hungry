@@ -149,7 +149,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements AdapterVi
 
     private void saveNewRecipe(String recipeText) {
         FileOutputStream outputStream;
-        String fileName = "output.txt";
+        String fileName = "baseline.txt";
 
         try{
             outputStream = openFileOutput(fileName, Context.MODE_APPEND);
