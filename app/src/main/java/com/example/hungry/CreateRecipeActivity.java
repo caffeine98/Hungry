@@ -106,12 +106,15 @@ public class CreateRecipeActivity extends AppCompatActivity implements AdapterVi
 
         if (recipeName.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please enter a recipe name",Toast.LENGTH_SHORT).show();
+            return;
         }
         if (ingredients.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),"Ingredients field cannot be empty",Toast.LENGTH_SHORT).show();
+            return;
         }
         if (instructions.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),"Instructions field cannot be empty",Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // Format every recipe text in a similar way to the code in Initialize.java
