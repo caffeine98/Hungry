@@ -131,6 +131,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements AdapterVi
         for (int i = 0; i < instructionsList.length; i++) {
             fullRecipeText += "* " + instructionsList[i] + "\n";
         }
+        fullRecipeText += "The End.\n";
 
         // Write to output.txt, so it can be read while browsing recipes
         saveNewRecipe(fullRecipeText);
@@ -145,7 +146,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements AdapterVi
 
     private void saveNewRecipe(String recipeText) {
         FileOutputStream outputStream;
-        String fileName = "recipes.txt";
+        String fileName = "output.txt";
 
         try{
             outputStream = openFileOutput(fileName, Context.MODE_APPEND);
