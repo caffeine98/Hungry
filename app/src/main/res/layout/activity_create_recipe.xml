@@ -6,17 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".CreateRecipeActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/recipe_create" />
+
     <TextView
         android:id="@+id/CreateRecipeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="116dp"
         android:text="Create Recipe"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/editTextMultiLineInstructions"
@@ -28,7 +40,6 @@
         android:hint="Instructions (separated by newline)"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextIngredients" />
 
@@ -45,12 +56,11 @@
         android:id="@+id/editTextRecipeName"
         android:layout_width="312dp"
         android:layout_height="47dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Recipe Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreateRecipeText" />
 
@@ -71,6 +81,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinnerCategory"
         app:layout_constraintTop_toBottomOf="@+id/editTextRecipeName" />
 
     <SeekBar
@@ -116,22 +127,22 @@
         android:id="@+id/seekBarMinCookTime"
         android:layout_width="265dp"
         android:layout_height="32dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="24dp"
         android:max="60"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTags" />
 
     <EditText
         android:id="@+id/editTextIngredients"
         android:layout_width="312dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Ingredients (separated by commas)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBarMaxCookTime" />
 
@@ -139,24 +150,26 @@
         android:id="@+id/buttonUploadNewRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="4dp"
         android:onClick="onClickUpload"
+        android:backgroundTint="#233C57"
         android:text="Upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonRecipeBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="4dp"
         android:onClick="onClickBack"
+        android:backgroundTint="#233C57"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
