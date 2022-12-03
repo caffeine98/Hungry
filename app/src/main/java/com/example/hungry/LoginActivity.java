@@ -32,4 +32,8 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    public void onBackClick(View view) {
+        finish();
+    }
 }

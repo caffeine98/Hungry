@@ -23,8 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity2 extends AppCompatActivity {
-
+public class comment extends AppCompatActivity {
     Spinner spinner;//upvoted vs recent spinner
     TextView comment1;//comment 1 content view
     TextView comment2;//comment 2 content view
@@ -40,13 +39,14 @@ public class MainActivity2 extends AppCompatActivity {
     int first;//first comment index
     int second;//second comment index
     DateTimeFormatter formatter;//date time formatter
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_comment);
 
-        Intent intent = getIntent();
+        intent = getIntent();
         //set up spinner
         spinner = findViewById(R.id.spinner);
         String[] sValues = {"Most Recent", "Most Upvoted"};
@@ -69,7 +69,7 @@ public class MainActivity2 extends AppCompatActivity {
         formatter = DateTimeFormatter.ISO_DATE_TIME;
 
         //Load comment data from output file and display 2 most recent if possible
-        String file = "output.txt";
+        String file = "comments.txt";
         String line = "";
         //Read File and save data
         try{
@@ -136,6 +136,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     //filter button
     public void filter(View v){
+        increaseLike();
+        like1.setChecked(false);
+        like2.setChecked(false);
         String spinVal = spinner.getSelectedItem().toString();
         if(comments.size() > 0) {
             if (spinVal.equals("Most Recent"))
@@ -179,20 +182,35 @@ public class MainActivity2 extends AppCompatActivity {
 
     //most liked
     public void displayLiked(){
+        like1.setChecked(false);
+        like2.setChecked(false);
         first = 0;//most likes index
         second = 0;//second most likes index
         int current = 1;//current likes index
         int size = likes.size();//size of likes
         //get most liked and second most liked
-        while(current < size)
-        {
-            if(likes.get(current) >= likes.get(first))
-            {
-                second = first;
-                first = current;
+        for(int i = 0; i < likes.size(); i+=1){
+            if(likes.get(i) > likes.get(second)) {
+                if (likes.get(i) > likes.get(first)) {
+                    second = first;
+                    first = i;
+                }else {
+                    second = i;
+                }
             }
-            current++;
         }
+//        while(current < size)
+//        {
+//            if(likes.get(current) > likes.get(first))
+//            {
+//                second = first;
+//                first = current;
+//            }else if(likes.get(current)> likes.get(second)){
+//                second = current;
+//            }
+//            current++;
+//        }
+
         String com1 = comments.get(first);//most liked comment
         comment1.setText(com1);
         String lik1 = likes.get(first).toString();//number of likes
@@ -200,43 +218,34 @@ public class MainActivity2 extends AppCompatActivity {
         like1.setChecked(false);
         LocalDateTime pTime = postTimes.get(first);
         String post1 = pTime.format(formatter);//get posted time//posted time
-        pTime1.setText(post1);
+        pTime1.setText(post1.split(".")[0]);
         //second most liked comment if more than one comment
-        if(second != first) {
-            String com2 = comments.get(second);//2nd most liked comment
-            comment2.setText(com2);
-            String lik2 = likes.get(second).toString();//number of likes
-            like2.setText(lik2);
-            like2.setChecked(false);
-            LocalDateTime pTimeTwo = postTimes.get(second);
-            String post2 = pTimeTwo.format(formatter);//get posted time
-            pTime2.setText(post2);
-        }
-        else
-        {
-            current = 1;
-            second = 0;
-            while(current < size)
-            {
-                if(likes.get(current) >= likes.get(second))
-                {
-                    if(current != first){
-                        second = current;
-                    }
-                }
-                current+=1;
-            }
-            String com2 = comments.get(second);//2nd most liked comment
-            comment2.setText(com2);
-            String lik2 = likes.get(second).toString();//number of likes
-            like2.setText(lik2);
-            like2.setChecked(false);
-            LocalDateTime pTimeTwo = postTimes.get(second);
-            String post2 = pTimeTwo.format(formatter);//get posted time
-            pTime2.setText(post2);
-        }
+        String com2 = comments.get(second);//2nd most liked comment
+        comment2.setText(com2);
+        String lik2 = likes.get(second).toString();//number of likes
+        like2.setText(lik2);
+        like2.setChecked(false);
+        LocalDateTime pTimeTwo = postTimes.get(second);
+        String post2 = pTimeTwo.format(formatter);//get posted time
+        pTime2.setText(post2.split(".")[0]);
 
     }
+
+    public void increaseLike() {
+        if (like1.isChecked()) {
+            //get previous amount and add one
+            Integer amount = likes.get(first) + 1;
+            likes.set(first, amount);
+            like1.setText(Integer.toString(amount));
+        }
+        if (like2.isChecked()) {
+            //get previous amount and add one
+            Integer amount = likes.get(second) + 1;
+            likes.set(second, amount);
+            like2.setText(Integer.toString(amount));
+        }
+    }
+
     //increments likes for comment 1
     public void increaseLike1(View v) {
         //if like 1 is checked add one like
@@ -246,13 +255,14 @@ public class MainActivity2 extends AppCompatActivity {
             Integer amount = likes.get(first) + 1;
             likes.set(first, amount);
             like1.setText(Integer.toString(amount));
-        } else {
-            Integer amount = likes.get(first) - 1;
-            if(amount >= 0) {
-                likes.set(first, amount);
-                like1.setText(Integer.toString(amount));
-            }
         }
+//        else {
+//            Integer amount = likes.get(first) - 1;
+//            if(amount >= 0) {
+//                likes.set(first, amount);
+//                like1.setText(Integer.toString(amount));
+//            }
+//        }
     }
     //increments likes for comment 2
     public void increaseLike2(View v) {
@@ -263,19 +273,20 @@ public class MainActivity2 extends AppCompatActivity {
             Integer amount = likes.get(second) + 1;
             likes.set(second, amount);
             like2.setText(Integer.toString(amount));
-        } else{
-            Integer amount = likes.get(second) - 1;
-            if(amount >= 0) {
-                likes.set(second, amount);
-                like2.setText(Integer.toString(amount));
-            }
         }
+//        else{
+//            Integer amount = likes.get(second) - 1;
+//            if(amount >= 0) {
+//                likes.set(second, amount);
+//                like2.setText(Integer.toString(amount));
+//            }
+//        }
     }
 
     //exit activity and save comment info to a txt file
     public void save(View v){
         // comment1.setText("YESSSS");
-        String filename = "output.txt";
+        String filename = "comments.txt";
         //get comment info
         int current = 0;
         String fileContent = "";
@@ -300,5 +311,6 @@ public class MainActivity2 extends AppCompatActivity {
             e.printStackTrace();
         }
         //TODO!! finish intent
+        finish();
     }
 }
