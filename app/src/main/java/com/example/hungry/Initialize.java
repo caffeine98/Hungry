@@ -44,18 +44,18 @@ public class Initialize extends AppCompatActivity {
             e.printStackTrace();
         }
 */
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
-//            if (br.readLine() == null)
-//                writeFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         try {
-            writeFile();
+            BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
+            if (br.readLine() == null)
+                writeFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        try {
+//            writeFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         txtOutput = findViewById(R.id.InitilizingText);
 
         try {
