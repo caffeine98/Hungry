@@ -37,7 +37,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Instructions (separated by newline)"
+        android:hint="Instructions (put each step in a separate line)"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
