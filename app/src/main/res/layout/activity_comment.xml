@@ -61,23 +61,23 @@
         android:id="@+id/postTime2"
         android:layout_width="162dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="124dp"
         android:gravity="center"
         android:text="Posted time..."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.756" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <CheckBox
         android:id="@+id/likeCheck2"
         android:layout_width="77dp"
         android:layout_height="46dp"
-        android:layout_marginTop="516dp"
+        android:layout_marginTop="524dp"
         android:onClick="increaseLike2"
         android:text="Like"
         app:layout_constraintEnd_toStartOf="@+id/postTime2"
-        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

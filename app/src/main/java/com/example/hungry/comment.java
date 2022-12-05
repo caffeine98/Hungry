@@ -218,7 +218,7 @@ public class comment extends AppCompatActivity {
         like1.setChecked(false);
         LocalDateTime pTime = postTimes.get(first);
         String post1 = pTime.format(formatter);//get posted time//posted time
-        pTime1.setText(post1.split(".")[0]);
+        pTime1.setText(post1);
         //second most liked comment if more than one comment
         String com2 = comments.get(second);//2nd most liked comment
         comment2.setText(com2);
@@ -227,7 +227,7 @@ public class comment extends AppCompatActivity {
         like2.setChecked(false);
         LocalDateTime pTimeTwo = postTimes.get(second);
         String post2 = pTimeTwo.format(formatter);//get posted time
-        pTime2.setText(post2.split(".")[0]);
+        pTime2.setText(post2);
 
     }
 

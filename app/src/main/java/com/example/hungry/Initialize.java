@@ -33,18 +33,18 @@ public class Initialize extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initialize);
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
-            if (br.readLine() == null)
-                writeFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 //        try {
-//            writeFile();
+//            BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
+//            if (br.readLine() == null)
+//                writeFile();
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        try {
+            writeFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         txtOutput = findViewById(R.id.InitilizingText);
 
         try {
@@ -120,7 +120,20 @@ public class Initialize extends AppCompatActivity {
                 max += 1;
             }
         }
-        txtOutput.setText(data);
+        FileInputStream fis2 = openFileInput("recipe.txt");
+        InputStreamReader isr2 = new InputStreamReader(fis2);
+        BufferedReader br2 = new BufferedReader(isr2);
+        //File read operation
+        data = "";
+        while((line = br2.readLine())!= null){
+            data+=line+"\n";
+            if(line.equals("The End.")){
+                arrayList.add(data);
+                data = "";
+                max += 1;
+            }
+        }
+        txtOutput.setText(arrayList.get(counter));
     }
     public void next(View view){
         finish();
