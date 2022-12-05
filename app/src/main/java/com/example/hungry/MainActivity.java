@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onSearchClick(View view){
         EditText editText = findViewById(R.id.SearchText);
+        if(editText.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(),"Please enter an ingredient.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         String str = editText.getText().toString();
         Intent intent = new Intent(this, SearchResult.class);
         Bundle bundle = new Bundle();

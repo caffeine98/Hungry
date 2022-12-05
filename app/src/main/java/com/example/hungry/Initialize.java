@@ -33,17 +33,6 @@ public class Initialize extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initialize);
 
-        /*FileOutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream(file,false);
-            outputStream.write(" ".getBytes(StandardCharsets.UTF_8));
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
         try {
             BufferedReader br = new BufferedReader(new FileReader("baseline.txt"));
             if (br.readLine() == null)
